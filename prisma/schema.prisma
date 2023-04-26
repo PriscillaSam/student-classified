@@ -31,12 +31,30 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
-model Session {
+model Category {
   id           String   @id @default(cuid())
-  sessionToken String   @unique@map("session_token")
-  userId       String   @map("user_id")
-  expires      DateTime
-  user         User     @relation(fields:[userId], references:[id], onDelete: Cascade)
+  name          String
+
+  ads           Ad[]
+}
+
+model Ad {
+ id             String    @id @default(cuid())
+ description    String
+ userId         String   @map("user_id")
+ categoryId     String   @map("category_id")
+ category       Category @relation(fields:[categoryId], references:[id] )
+ seller         User     @relation(fields:[userId], references:[id], onDelete: Cascade)
+
+ reviews        Review[]
+}
+
+model Session {
+  id            String   @id @default(cuid())
+  sessionToken  String   @unique@map("session_token")
+  userId        String   @map("user_id")
+  expires       DateTime
+  user          User     @relation(fields:[userId], references:[id], onDelete: Cascade)
 }
 
 model User {
@@ -45,8 +63,22 @@ model User {
   email         String?@unique
   emailVerified DateTime?
   image         String?
+
   accounts      Account[]
   sessions      Session[]
+  ads           Ad[]
+  reviews       Review[]
+}
+
+
+model Review {
+  id             String    @id @default(cuid())
+  note           String?
+  rating         Int
+  userId         String    @map("user_id")
+  adId           String    @map("ad_id")
+  ad             Ad        @relation(fields:[adId], references:[id] )
+  seller         User      @relation(fields:[userId], references:[id], onDelete: Cascade)
 }
 
 model VerificationToken {
