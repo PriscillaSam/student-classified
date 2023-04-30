@@ -22,9 +22,8 @@ import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
 import { SignIn } from './AuthButtons';
 import { signOut, useSession } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
-const Links: string[] = [];
 
-const NavLink = ({ children }: { children: ReactNode }) => (
+const NavLink = ({ children, href }: { children: ReactNode; href: string }) => (
   <Link
     px={2}
     py={1}
@@ -33,11 +32,13 @@ const NavLink = ({ children }: { children: ReactNode }) => (
       textDecoration: 'none',
       bg: useColorModeValue('gray.200', 'gray.700'),
     }}
-    href={'#'}
+    href={href}
   >
     {children}
   </Link>
 );
+
+const Links: string[] = ['create'];
 
 export default function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -65,7 +66,9 @@ export default function Header() {
               display={{ base: 'none', md: 'flex' }}
             >
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+                <NavLink key={link} href={link}>
+                  {link}
+                </NavLink>
               ))}
             </HStack>
           </HStack>
