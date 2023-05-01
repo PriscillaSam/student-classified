@@ -5,10 +5,16 @@ import {
   Badge,
   useColorModeValue,
   Text,
+  Divider,
+  Tooltip,
+  IconButton,
+  Center,
+  Circle,
 } from '@chakra-ui/react';
-import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs';
+import { BsStar, BsStarFill, BsStarHalf, BsEye } from 'react-icons/bs';
 import { CiLocationOn } from 'react-icons/ci';
 import { Ad } from '../types';
+import Link from 'next/link';
 
 const data = {
   isNew: true,
@@ -75,27 +81,19 @@ function Listing({
         />
 
         <Box p="6">
-          <Box
-            display="flex"
-            alignItems="baseline"
-            justifyContent="space-between"
-          >
+          <Box>
             <Badge
               rounded="full"
               px="2"
-              fontSize="0.8em"
+              fontSize="0.6em"
               colorScheme={isActive ? 'green' : 'red'}
             >
               {isActive ? 'Active' : 'Deactivated'}
             </Badge>
-            <Box>
-              <CiLocationOn />
-              {location}
-            </Box>
           </Box>
           <Flex mt="1" justifyContent="space-between" alignContent="center">
             <Box
-              fontSize="2xl"
+              fontSize="l"
               fontWeight="semibold"
               as="h4"
               lineHeight="tight"
@@ -104,9 +102,40 @@ function Listing({
               {title}
             </Box>
           </Flex>
-          <Text>{description}</Text>
-          <Flex justifyContent="space-between" alignContent="center">
-            <Rating rating={data.rating} numReviews={data.numReviews} />
+          <Flex alignItems="center" pt={5} gap={2} mb={5}>
+            <Circle size={'20px'} bg="green.700" color="white">
+              <CiLocationOn />
+            </Circle>
+            <Text>Lagos</Text>
+          </Flex>
+          <Divider />
+          <Flex justifyContent="space-between" alignItems="center" pt={5}>
+            <Flex gap={2}>
+              <Tooltip hasArrow label="View Ad" bg="gray.500" color="white">
+                <Link href={`/ads/${id}`}>
+                  <IconButton
+                    variant="outline"
+                    borderRadius={50}
+                    icon={<BsEye />}
+                    aria-label="View Ad"
+                  />
+                </Link>
+              </Tooltip>
+              <Tooltip hasArrow label="Review Ad" bg="gray.500" color="white">
+                <Link href={`/ads/${id}`}>
+                  <IconButton
+                    variant="outline"
+                    borderRadius={50}
+                    icon={<BsStar />}
+                    aria-label="Review Ad"
+                  />
+                </Link>
+              </Tooltip>
+            </Flex>
+
+            <Text fontSize="s" fontWeight="bold">
+              170 views
+            </Text>
           </Flex>
         </Box>
       </Box>
