@@ -20,7 +20,7 @@ export default function CreateAd() {
   const [state, setState] = React.useState({
     phone: '',
     street: '',
-    state: '',
+    location: '',
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,12 +69,12 @@ export default function CreateAd() {
         </FormControl>
 
         <FormControl isRequired>
-          <FormLabel>State</FormLabel>
+          <FormLabel>Location</FormLabel>
           <Select
             placeholder="Select State"
             onChange={(e) => handleChange(e as any)}
             name="state"
-            value={state.state}
+            value={state.location}
           >
             {states.map((state) => (
               <option key={state} value={state}>
@@ -85,13 +85,11 @@ export default function CreateAd() {
         </FormControl>
 
         <FormControl isRequired>
-          <FormLabel>Description</FormLabel>
-          <Textarea
+          <FormLabel>Phone</FormLabel>
+          <Input
             onChange={(e) => handleChange(e as any)}
-            name="message"
-            placeholder="Enter your description"
-            rows={6}
-            resize="none"
+            name="phone"
+            placeholder="Enter your phone number"
           />
         </FormControl>
 
