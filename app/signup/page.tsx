@@ -8,10 +8,15 @@ import {
   Button,
   Heading,
   useColorModeValue,
-  Center,
   Text,
+  FormControl,
+  FormLabel,
+  Input,
+  Checkbox,
+  Divider,
 } from '@chakra-ui/react';
 import { signIn } from 'next-auth/react';
+import { BsFacebook } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
 
 export default function SignUp() {
@@ -35,13 +40,51 @@ export default function SignUp() {
             <Button
               w={'full'}
               variant={'outline'}
-              leftIcon={<FcGoogle />}
+              leftIcon={<FcGoogle size={25} />}
               onClick={() => signIn('google')}
             >
-              <Center>
-                <Text>Sign in with Google</Text>
-              </Center>
+              <Text>Sign in with Google</Text>
             </Button>
+            <Button
+              w={'full'}
+              variant={'outline'}
+              leftIcon={<BsFacebook color="#4299e1" size={25} />}
+            >
+              <Text>Sign in with Facebook</Text>
+            </Button>
+
+            <Text align="center">Or</Text>
+            <Divider />
+
+            <Stack spacing={4}>
+              <FormControl id="email">
+                <FormLabel>Email address</FormLabel>
+                <Input type="email" />
+              </FormControl>
+              <FormControl id="password">
+                <FormLabel>Password</FormLabel>
+                <Input type="password" />
+              </FormControl>
+              <Stack spacing={10}>
+                <Stack
+                  direction={{ base: 'column', sm: 'row' }}
+                  align={'start'}
+                  justify={'space-between'}
+                >
+                  <Checkbox>Remember me</Checkbox>
+                  <Link color={'blue.400'}>Forgot password?</Link>
+                </Stack>
+                <Button
+                  bg={'blue.400'}
+                  color={'white'}
+                  _hover={{
+                    bg: 'blue.500',
+                  }}
+                >
+                  Sign in
+                </Button>
+              </Stack>
+            </Stack>
           </Stack>
         </Box>
       </Stack>
