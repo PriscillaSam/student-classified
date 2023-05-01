@@ -93,7 +93,6 @@ export default function Header() {
                 <MenuItem>
                   <Link href={'/ads'}>My ads</Link>
                 </MenuItem>
-                <MenuItem>Link 3</MenuItem>
               </MenuList>
             </Menu>
             {session?.user ? (
