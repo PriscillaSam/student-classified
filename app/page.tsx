@@ -1,13 +1,5 @@
 'use client';
 
-import Image from 'next/image';
-import { Inter } from 'next/font/google';
-
-import styles from './page.module.css';
-
-// const inter = Inter({ subsets: ['latin'] });
-
-import Head from 'next/head';
 import {
   Box,
   Heading,
@@ -20,8 +12,8 @@ import {
   createIcon,
   SimpleGrid,
 } from '@chakra-ui/react';
-import Features from './components/Features';
-import ProductAddToCart from './components/FeaturedListings';
+import Features from 'components/Features';
+import Listing from 'components/FeaturedListings';
 
 export default function CallToActionWithAnnotation() {
   return (
@@ -101,10 +93,10 @@ export default function CallToActionWithAnnotation() {
       <Container maxW={'8xl'} mt={100}>
         <Heading>Featured Listings</Heading>
         <SimpleGrid columns={{ base: 1, md: 3, lg: 4 }} spacing={10} mt={50}>
-          <ProductAddToCart />
-          <ProductAddToCart />
-          <ProductAddToCart />
-          <ProductAddToCart />
+          <Listing />
+          <Listing />
+          <Listing />
+          <Listing />
         </SimpleGrid>
       </Container>
     </>

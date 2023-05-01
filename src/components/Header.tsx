@@ -16,10 +16,8 @@ import {
   MenuDivider,
   useDisclosure,
   useColorModeValue,
-  Stack,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
-import { SignIn } from './AuthButtons';
 import { signOut, useSession } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 
@@ -45,7 +43,7 @@ export default function Header() {
   const pathname = usePathname();
   const isActive: (path: string) => boolean = (path) => path === pathname;
 
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
   return (
     <>
@@ -59,7 +57,9 @@ export default function Header() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={'center'}>
-            <Box>Student Classifieds</Box>
+            <Box>
+              <Link href="/">Student Classifieds</Link>
+            </Box>
             <HStack
               as={'nav'}
               spacing={4}
@@ -87,7 +87,9 @@ export default function Header() {
                 </MenuButton>
                 <MenuList>
                   <MenuItem onClick={() => signOut()}>Logout</MenuItem>
-                  <MenuItem>Link 2</MenuItem>
+                  <MenuItem>
+                    <Link href={'/profile'}>My Profile</Link>
+                  </MenuItem>
                   <MenuDivider />
                   <MenuItem>Link 3</MenuItem>
                 </MenuList>
