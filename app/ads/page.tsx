@@ -20,7 +20,7 @@ export default function Profile() {
 
   return (
     <Container maxW={'8xl'} mt={100}>
-      <Heading size="l">Current Ads</Heading>
+      <Heading>Current Ads</Heading>
       <SimpleGrid
         columns={{ base: 1, md: 3, lg: 4 }}
         spacing={10}
