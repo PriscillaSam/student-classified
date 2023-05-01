@@ -1,3 +1,28 @@
+.hero {
+  background: url('/mosaic-small.jpg');
+  height: calc(100vh - 4rem);
+  position: relative;
+}
+
+.heroOverlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  opacity: 0.85;
+  background: #374b5c;
+}
+
+.heroContent {
+  color: white;
+  position: 'relative';
+}
+
+.searchBox {
+  background: rgba(253, 253, 254, 0.95);
+  color: #374b5c;
+  padding: 10px;
+}
+
 .main {
   display: flex;
   flex-direction: column;

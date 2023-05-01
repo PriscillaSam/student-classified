@@ -35,31 +35,23 @@ export default function Features() {
       <SimpleGrid columns={{ base: 1, md: 3, lg: 4 }} spacing={10}>
         <Feature
           icon={<Icon as={FcSearch} w={10} h={10} />}
-          title="Search for service"
-          text={
-            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore...'
-          }
+          title="Search for a service"
+          text="With a quick online search, you can find countless options for almost any service you need. However, this abundance of choices can also make it difficult to find the right service provider for you."
         />
         <Feature
           icon={<Icon as={FcSupport} w={10} h={10} />}
           title="Find professionals"
-          text={
-            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore...'
-          }
+          text="Whether you're looking for a painter, plumber, or any other type of professional, finding the right person for the job can be a crucial decision. You want someone who is experienced, and trustworthy, and who can provide the level of service you need."
         />
         <Feature
           icon={<Icon as={FcDocument} w={10} h={10} />}
           title="Get a quote"
-          text={
-            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore...'
-          }
+          text="To get a quote, you will need to provide some basic information about your needs and requirements. Once you've provided this information, the provider will give you a quote that outlines the cost of the product or service, as well as any additional fees or charges."
         />
         <Feature
           icon={<Icon as={FcApproval} w={10} h={10} />}
           title="Enjoy the service"
-          text={
-            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore...'
-          }
+          text="Now that you are all fixed up, enjoy the service you have paid for. If you're satisfied with the service, kindly provide feedback to the provider."
         />
       </SimpleGrid>
     </Box>

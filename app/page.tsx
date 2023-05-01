@@ -1,21 +1,30 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import {
   Box,
   Heading,
   Container,
   Text,
-  Button,
   Stack,
   Icon,
   useColorModeValue,
   createIcon,
   SimpleGrid,
+  Flex,
+  InputGroup,
+  Input,
+  InputLeftAddon,
+  IconButton,
 } from '@chakra-ui/react';
 import Features from 'components/Features';
 import Listing from 'components/FeaturedListings';
-import { useEffect, useState } from 'react';
+import { HiLightBulb } from 'react-icons/hi';
+import { CiLocationOn } from 'react-icons/ci';
+
 import { Ad } from '../src/types';
+import styles from './page.module.css';
+import { SearchIcon } from '@chakra-ui/icons';
 
 export default function Home() {
   const [ads, setAds] = useState<Ad[]>([]);
@@ -33,73 +42,77 @@ export default function Home() {
 
   return (
     <>
-      <Container maxW={'3xl'}>
-        <Stack
-          as={Box}
-          textAlign={'center'}
-          spacing={{ base: 8, md: 14 }}
-          py={{ base: 20, md: 36 }}
+      <section className={styles.hero}>
+        <div className={styles.heroOverlay} />
+        <Container
+          maxW={'3xl'}
+          style={{ color: 'white', position: 'relative' }}
         >
-          <Heading
-            fontWeight={600}
-            fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
-            lineHeight={'110%'}
-          >
-            Find Any Service <br />
-            <Text as={'span'} color={'green.400'}>
-              Around You.
-            </Text>
-          </Heading>
-          <Text color={'gray.500'}>
-            Are you looking for professional services in your area? Or looking
-            to render your services. Posting an ad is free and easy – it only
-            takes a few simple steps! Select the right category and publish your
-            classified ad for free.
-          </Text>
           <Stack
-            direction={'column'}
-            spacing={3}
-            align={'center'}
-            alignSelf={'center'}
-            position={'relative'}
+            as={Box}
+            textAlign={'center'}
+            spacing={{ base: 8, md: 14 }}
+            pt={{ base: 20, md: 36 }}
+            pb={10}
           >
-            <Button
-              colorScheme={'green'}
-              bg={'green.400'}
-              rounded={'full'}
-              px={6}
-              _hover={{
-                bg: 'green.500',
-              }}
+            <Heading
+              position={'relative'}
+              fontWeight={600}
+              fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
+              lineHeight={'110%'}
             >
-              Get Started
-            </Button>
-            <Button variant={'link'} colorScheme={'blue'} size={'sm'}>
-              Learn more
-            </Button>
-            <Box>
+              Find Any Service <br />
+              <Text as={'span'} color={'yellow.400'}>
+                Around You
+              </Text>
+              .
               <Icon
                 as={Arrow}
-                color={useColorModeValue('gray.800', 'gray.300')}
+                color={useColorModeValue('yellow.400', 'yellow.300')}
                 w={71}
                 position={'absolute'}
-                right={-71}
-                top={'10px'}
+                right={'76px'}
+                top={10}
+                transform={'rotate(-90deg)'}
               />
-              <Text
-                fontSize={'lg'}
-                fontFamily={'Caveat'}
-                position={'absolute'}
-                right={'-125px'}
-                top={'-15px'}
-                transform={'rotate(10deg)'}
-              >
-                Starting at $15/mo
-              </Text>
-            </Box>
+            </Heading>
+            <Text>
+              Posting an ad is free and easy – it only takes a few simple steps!
+              Select the right category and publish your classified ad for free.
+            </Text>
           </Stack>
-        </Stack>
-      </Container>
+          <Box className={styles.searchBox} padding={10} borderRadius={10}>
+            <Flex justify="space-between" align="center" gap={5}>
+              <InputGroup>
+                <InputLeftAddon
+                  background="gray.200"
+                  color="gray.500"
+                  fontSize="1rem"
+                >
+                  <HiLightBulb />
+                </InputLeftAddon>
+                <Input placeholder="I need a..." />
+              </InputGroup>
+              <InputGroup>
+                <InputLeftAddon
+                  background="gray.200"
+                  color="gray.500"
+                  fontSize="1rem"
+                >
+                  <CiLocationOn />
+                </InputLeftAddon>
+                <Input placeholder="Location (e.g Lagos)" color="grey.600" />
+              </InputGroup>
+              <IconButton
+                aria-label="Search services"
+                colorScheme="blue"
+                icon={<SearchIcon />}
+              />
+            </Flex>
+          </Box>
+        </Container>
+      </section>
+
       <Box bg="gray.50" pt={50} pb={50}>
         <Container maxW={'8xl'}>
           <Features />
