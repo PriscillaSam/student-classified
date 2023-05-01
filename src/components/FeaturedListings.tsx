@@ -15,6 +15,7 @@ import { BsStar, BsStarFill, BsStarHalf, BsEye } from 'react-icons/bs';
 import { CiLocationOn } from 'react-icons/ci';
 import { Ad } from '../types';
 import Link from 'next/link';
+import { useState } from 'react';
 
 const data = {
   isNew: true,
@@ -64,6 +65,8 @@ function Listing({
 }: {
   ad: Ad;
 }) {
+  const [error, setError] = useState(false);
+
   return (
     <Flex w="full" alignItems="center" justifyContent="center">
       <Box
@@ -75,9 +78,12 @@ function Listing({
         position="relative"
       >
         <Image
-          src={category.name === 'Painting' ? '/painting.jpeg' : data.imageURL}
+          src={error ? data.imageURL : `/${category.name.toLowerCase()}.jpeg`}
           alt={`Picture of ${category.name}`}
           roundedTop="lg"
+          height={200}
+          width={500}
+          onError={() => setError(true)}
         />
 
         <Box p="6">
