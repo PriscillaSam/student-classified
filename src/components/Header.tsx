@@ -12,12 +12,13 @@ import {
   Menu,
   MenuButton,
   MenuList,
+  Stack,
   MenuItem,
   MenuDivider,
   useDisclosure,
   useColorModeValue,
 } from '@chakra-ui/react';
-import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
+import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { signOut, useSession } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 import { SignIn } from './AuthButtons';
@@ -61,40 +62,21 @@ export default function Header() {
             <Box>
               <Link href="/">Student Classifieds</Link>
             </Box>
-            <HStack
-              as={'nav'}
-              spacing={4}
-              display={{ base: 'none', md: 'flex' }}
-            >
-              {Links.map((link) => (
-                <NavLink key={link} href={link}>
-                  {link}
-                </NavLink>
-              ))}
-            </HStack>
+            {session?.user ? (
+              <HStack
+                as={'nav'}
+                spacing={4}
+                display={{ base: 'none', md: 'flex' }}
+              >
+                {Links.map((link) => (
+                  <NavLink key={link} href={link}>
+                    {link}
+                  </NavLink>
+                ))}
+              </HStack>
+            ) : null}
           </HStack>
           <Flex alignItems={'center'}>
-            <Menu>
-              <MenuButton
-                m={2}
-                as={Button}
-                rounded={'full'}
-                variant={'link'}
-                cursor={'pointer'}
-                minW={0}
-              >
-                User
-              </MenuButton>
-              <MenuList>
-                <MenuItem>
-                  <Link href={'/profile'}>My Profile</Link>
-                </MenuItem>
-                <MenuDivider />
-                <MenuItem>
-                  <Link href={'/ads'}>My ads</Link>
-                </MenuItem>
-              </MenuList>
-            </Menu>
             {session?.user ? (
               <Menu>
                 <MenuButton
@@ -104,24 +86,40 @@ export default function Header() {
                   cursor={'pointer'}
                   minW={0}
                 >
-                  <Avatar size={'sm'} src={session.user.image || ''} />
-                  {session.user.name}
+                  <Flex alignItems={'center'}>
+                    <Avatar size={'sm'} src={session.user.image || ''} />
+                    {session.user.name}
+                  </Flex>
                 </MenuButton>
                 <MenuList>
                   <MenuItem onClick={() => signOut()}>Logout</MenuItem>
+                  <MenuDivider />
                   <MenuItem>
                     <Link href={'/profile'}>My Profile</Link>
                   </MenuItem>
                   <MenuDivider />
-                  <MenuItem>Link 3</MenuItem>
+                  <MenuItem>
+                    <Link href={'/ads'}>My Ads</Link>
+                  </MenuItem>
                 </MenuList>
               </Menu>
             ) : (
-              // <SignIn />
-              <Link href={'/signup'}> Sign in</Link>
+              <SignIn />
             )}
           </Flex>
         </Flex>
+
+        {isOpen ? (
+          <Box pb={4} display={{ md: 'none' }}>
+            <Stack as={'nav'} spacing={4}>
+              {Links.map((link) => (
+                <NavLink key={link} href={link}>
+                  {link}
+                </NavLink>
+              ))}
+            </Stack>
+          </Box>
+        ) : null}
       </Box>
     </>
   );

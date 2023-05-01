@@ -11,20 +11,19 @@ import {
   Center,
   Text,
 } from '@chakra-ui/react';
-import { signOut, signIn } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import { FcGoogle } from 'react-icons/fc';
 
 export default function SignUp() {
   return (
     <Flex
-      minH={'100vh'}
-      align={'center'}
+      minH={'calc(100vh - 4rem)'}
       justify={'center'}
       bg={useColorModeValue('gray.50', 'gray.800')}
     >
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
-          <Heading fontSize={'4xl'}>Create your account</Heading>
+          <Heading fontSize={'4xl'}>Sign into your account</Heading>
         </Stack>
         <Box
           rounded={'lg'}
@@ -40,7 +39,7 @@ export default function SignUp() {
               onClick={() => signIn('google')}
             >
               <Center>
-                <Text>Sign up with Google</Text>
+                <Text>Sign in with Google</Text>
               </Center>
             </Button>
           </Stack>

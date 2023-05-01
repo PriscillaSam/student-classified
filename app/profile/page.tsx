@@ -12,10 +12,13 @@ import {
   VStack,
   Select,
 } from '@chakra-ui/react';
+import { useSession } from 'next-auth/react';
 import React, { useEffect } from 'react';
 import fetchStates from 'utils/fetchStates';
 
 export default function CreateAd() {
+  const { data: session } = useSession();
+
   const [states, setStates] = React.useState<string[]>([]);
   const [state, setState] = React.useState({
     phone: '',
@@ -64,7 +67,12 @@ export default function CreateAd() {
           <FormLabel>Email</FormLabel>
 
           <InputGroup>
-            <Input onChange={handleChange} type="text" name="email" disabled />
+            <Input
+              type="text"
+              name="email"
+              value={session?.user?.email || ''}
+              disabled
+            />
           </InputGroup>
         </FormControl>
 

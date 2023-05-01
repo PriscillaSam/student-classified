@@ -1,4 +1,11 @@
-import { Flex, Box, Image, Badge, useColorModeValue } from '@chakra-ui/react';
+import {
+  Flex,
+  Box,
+  Image,
+  Badge,
+  useColorModeValue,
+  Text,
+} from '@chakra-ui/react';
 import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs';
 
 const data = {
@@ -44,7 +51,20 @@ function Rating({ rating, numReviews }: RatingProps) {
   );
 }
 
-function ProductAddToCart() {
+type Ad = {
+  id: string;
+  title: string;
+  description: string;
+  priceRange: string;
+  isActive: boolean;
+  location: string;
+};
+
+function Listing({
+  ad: { id, title, description, priceRange, isActive, location },
+}: {
+  ad: Ad;
+}) {
   return (
     <Flex w="full" alignItems="center" justifyContent="center">
       <Box
@@ -64,8 +84,13 @@ function ProductAddToCart() {
         <Box p="6">
           <Box display="flex" alignItems="baseline">
             {data.isNew && (
-              <Badge rounded="full" px="2" fontSize="0.8em" colorScheme="red">
-                New
+              <Badge
+                rounded="full"
+                px="2"
+                fontSize="0.8em"
+                colorScheme={isActive ? 'green' : 'red'}
+              >
+                {isActive ? 'Active' : 'Deactivated'}
               </Badge>
             )}
           </Box>
@@ -77,9 +102,10 @@ function ProductAddToCart() {
               lineHeight="tight"
               isTruncated
             >
-              {data.name}
+              {title}
             </Box>
           </Flex>
+          <Text>{description}</Text>
 
           <Flex justifyContent="space-between" alignContent="center">
             <Rating rating={data.rating} numReviews={data.numReviews} />
@@ -90,4 +116,4 @@ function ProductAddToCart() {
   );
 }
 
-export default ProductAddToCart;
+export default Listing;

@@ -93,10 +93,10 @@ export default function CallToActionWithAnnotation() {
       <Container maxW={'8xl'} mt={100}>
         <Heading>Featured Listings</Heading>
         <SimpleGrid columns={{ base: 1, md: 3, lg: 4 }} spacing={10} mt={50}>
+          {/* <Listing />
           <Listing />
           <Listing />
-          <Listing />
-          <Listing />
+          <Listing /> */}
         </SimpleGrid>
       </Container>
     </>

@@ -2,7 +2,8 @@
 
 import { FaPlus } from 'react-icons/fa';
 import { signOut, signIn } from 'next-auth/react';
-import { Button } from '@chakra-ui/react';
+import { Button, Center, Text } from '@chakra-ui/react';
+import { FcGoogle } from 'react-icons/fc';
 
 export function SignOut() {
   return (
@@ -18,14 +19,15 @@ export function SignOut() {
 export function SignIn() {
   return (
     <Button
-      variant={'solid'}
-      colorScheme={'teal'}
-      size={'sm'}
-      mr={4}
-      leftIcon={<FaPlus />}
+      w={'full'}
+      variant="solid"
+      background="white"
+      leftIcon={<FcGoogle />}
       onClick={() => signIn('google')}
     >
-      Signin
+      <Center>
+        <Text>Sign in with Google</Text>
+      </Center>
     </Button>
   );
 }
