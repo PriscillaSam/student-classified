@@ -14,8 +14,23 @@ import {
 } from '@chakra-ui/react';
 import Features from 'components/Features';
 import Listing from 'components/FeaturedListings';
+import { useEffect, useState } from 'react';
+import { Ad } from '../src/types';
 
-export default function CallToActionWithAnnotation() {
+export default function Home() {
+  const [ads, setAds] = useState<Ad[]>([]);
+
+  useEffect(() => {
+    fetch('/api/ad', {
+      method: 'GET',
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setAds(data);
+      });
+  }, []);
+
   return (
     <>
       <Container maxW={'3xl'}>
@@ -93,10 +108,9 @@ export default function CallToActionWithAnnotation() {
       <Container maxW={'8xl'} mt={100}>
         <Heading>Featured Listings</Heading>
         <SimpleGrid columns={{ base: 1, md: 3, lg: 4 }} spacing={10} mt={50}>
-          {/* <Listing />
-          <Listing />
-          <Listing />
-          <Listing /> */}
+          {ads.map((ad) => (
+            <Listing key={ad.id} ad={ad} />
+          ))}
         </SimpleGrid>
       </Container>
     </>

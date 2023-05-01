@@ -7,6 +7,8 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs';
+import { CiLocationOn } from 'react-icons/ci';
+import { Ad } from '../types';
 
 const data = {
   isNew: true,
@@ -51,15 +53,6 @@ function Rating({ rating, numReviews }: RatingProps) {
   );
 }
 
-type Ad = {
-  id: string;
-  title: string;
-  description: string;
-  priceRange: string;
-  isActive: boolean;
-  location: string;
-};
-
 function Listing({
   ad: { id, title, description, priceRange, isActive, location },
 }: {
@@ -82,17 +75,23 @@ function Listing({
         />
 
         <Box p="6">
-          <Box display="flex" alignItems="baseline">
-            {data.isNew && (
-              <Badge
-                rounded="full"
-                px="2"
-                fontSize="0.8em"
-                colorScheme={isActive ? 'green' : 'red'}
-              >
-                {isActive ? 'Active' : 'Deactivated'}
-              </Badge>
-            )}
+          <Box
+            display="flex"
+            alignItems="baseline"
+            justifyContent="space-between"
+          >
+            <Badge
+              rounded="full"
+              px="2"
+              fontSize="0.8em"
+              colorScheme={isActive ? 'green' : 'red'}
+            >
+              {isActive ? 'Active' : 'Deactivated'}
+            </Badge>
+            <Box>
+              <CiLocationOn />
+              {location}
+            </Box>
           </Box>
           <Flex mt="1" justifyContent="space-between" alignContent="center">
             <Box
@@ -106,7 +105,6 @@ function Listing({
             </Box>
           </Flex>
           <Text>{description}</Text>
-
           <Flex justifyContent="space-between" alignContent="center">
             <Rating rating={data.rating} numReviews={data.numReviews} />
           </Flex>

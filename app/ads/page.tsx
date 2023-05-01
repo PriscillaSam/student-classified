@@ -2,37 +2,22 @@
 
 import { Container, Heading, SimpleGrid } from '@chakra-ui/react';
 import Listing from 'components/FeaturedListings';
-const ads = [
-  {
-    id: '1',
-    title: 'Best plumbing available',
-    description:
-      'Have you been looking for a plumber? Look no further. This is a one stop shop for all your plumbing needs',
-    priceRange: '120-350/hr',
-    isActive: true,
-    location: 'Lagos',
-  },
-
-  {
-    id: '2',
-    title: 'Painting service',
-    description: "This is the best painting job you've gotten done",
-    priceRange: '120-350/hr',
-    isActive: true,
-    location: 'Benin',
-  },
-
-  {
-    id: '3',
-    title: 'Home cleaning service',
-    description: 'Clean your apartment at a fair and reasonable rate',
-    priceRange: '120-350/hr',
-    isActive: true,
-    location: 'Lagos',
-  },
-];
+import { useState, useEffect } from 'react';
+import { Ad } from '../../src/types';
 
 export default function Profile() {
+  const [ads, setAds] = useState<Ad[]>([]);
+
+  useEffect(() => {
+    fetch('/api/ad', {
+      method: 'GET',
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setAds(data);
+      });
+  }, []);
+
   return (
     <Container maxW={'8xl'} mt={100}>
       <Heading size="l">Current Ads</Heading>

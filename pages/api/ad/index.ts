@@ -6,29 +6,44 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const session = await getSession({ req });
-  console.log(session);
-  if (!session || !session.user) {
-    return res.status(403).send('Unauthorized');
-  }
+  // const session = await getSession({ req });
+  // console.log(session);
+  // if (!session || !session.user) {
+  //   console.log('testing');
 
-  const email = 'session.user.email';
+  //   return res.status(200).send('Unauthorized');
+  // }
+
+  // const email = 'session.user.email';
 
   if (req.method === 'POST') {
     await prismaClient.ad.create({
       data: {
         description: req.body.description,
-        categoryId: req.body.category,
         priceRange: req.body.price,
         title: req.body.title,
         isActive: true,
         // @ts-ignore
-        seller: { connect: { email } },
+        seller: { connect: { email: req.body.email } },
         category: { connect: { id: req.body.category } },
       },
     });
 
     return res.status(200).json({ error: null });
+  }
+
+  if (req.method === 'GET') {
+    const ads = await prismaClient.ad.findMany({
+      where: {
+        isActive: true,
+      },
+      include: {
+        category: true,
+        seller: true,
+      },
+    });
+
+    return res.status(200).json(ads);
   }
 
   return res.send('Method not allowed.');

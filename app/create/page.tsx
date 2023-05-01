@@ -13,6 +13,8 @@ import {
   Select,
 } from '@chakra-ui/react';
 import { Category } from '@prisma/client';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 import fetchStates from 'utils/fetchStates';
 
@@ -23,6 +25,8 @@ async function fetchCategories() {
 }
 
 export default function CreateAd() {
+  const router = useRouter();
+  const { data: session } = useSession();
   const [states, setStates] = React.useState<string[]>([]);
   const [categories, setCategories] = React.useState<Category[]>([]);
   const [state, setState] = React.useState({
@@ -42,10 +46,12 @@ export default function CreateAd() {
     const res = await fetch('/api/ad', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(state),
+      body: JSON.stringify({ ...state, email: session?.user?.email }),
     });
 
-    console.log(res);
+    if (res.ok) {
+      router.push('/ads');
+    }
   };
 
   useEffect(() => {
