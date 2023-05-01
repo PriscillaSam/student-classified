@@ -19,6 +19,9 @@ export default async function handler(
       data: {
         description: req.body.description,
         categoryId: req.body.category,
+        priceRange: req.body.price,
+        title: req.body.title,
+        isActive: true,
         // @ts-ignore
         seller: { connect: { email } },
         category: { connect: { id: req.body.category } },

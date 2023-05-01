@@ -74,6 +74,28 @@ export default function Header() {
             </HStack>
           </HStack>
           <Flex alignItems={'center'}>
+            <Menu>
+              <MenuButton
+                m={2}
+                as={Button}
+                rounded={'full'}
+                variant={'link'}
+                cursor={'pointer'}
+                minW={0}
+              >
+                User
+              </MenuButton>
+              <MenuList>
+                <MenuItem>
+                  <Link href={'/profile'}>My Profile</Link>
+                </MenuItem>
+                <MenuDivider />
+                <MenuItem>
+                  <Link href={'/ads'}>My ads</Link>
+                </MenuItem>
+                <MenuItem>Link 3</MenuItem>
+              </MenuList>
+            </Menu>
             {session?.user ? (
               <Menu>
                 <MenuButton
@@ -96,8 +118,8 @@ export default function Header() {
                 </MenuList>
               </Menu>
             ) : (
-              <SignIn />
-              // <Link href={'/signup'}> Sign in</Link>
+              // <SignIn />
+              <Link href={'/signup'}> Sign in</Link>
             )}
           </Flex>
         </Flex>

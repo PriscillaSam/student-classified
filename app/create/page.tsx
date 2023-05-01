@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { Category } from '@prisma/client';
 import React, { useEffect } from 'react';
+import fetchStates from 'utils/fetchStates';
 
 async function fetchCategories() {
   const res = await fetch('/api/category');
@@ -22,11 +23,14 @@ async function fetchCategories() {
 }
 
 export default function CreateAd() {
+  const [states, setStates] = React.useState<string[]>([]);
   const [categories, setCategories] = React.useState<Category[]>([]);
   const [state, setState] = React.useState({
     title: '',
     description: 'description',
     category: '',
+    location: '',
+    priceRange: '',
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,7 +51,10 @@ export default function CreateAd() {
   useEffect(() => {
     (async () => {
       const categories = await fetchCategories();
+
       setCategories(categories);
+      const states = await fetchStates();
+      setStates(states);
     })();
   }, []);
 
@@ -78,6 +85,19 @@ export default function CreateAd() {
             />
           </InputGroup>
         </FormControl>
+        <FormControl>
+          <FormLabel>Price Range</FormLabel>
+
+          <InputGroup>
+            <Input
+              onChange={handleChange}
+              value={state.priceRange}
+              type="text"
+              name="priceRange"
+              placeholder="Enter a price range"
+            />
+          </InputGroup>
+        </FormControl>
 
         <FormControl isRequired>
           <FormLabel>Category</FormLabel>
@@ -90,6 +110,22 @@ export default function CreateAd() {
             {categories.map((category) => (
               <option key={category.id} value={category.id}>
                 {category.name}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
+
+        <FormControl isRequired>
+          <FormLabel>Location</FormLabel>
+          <Select
+            placeholder="Select Location"
+            onChange={(e) => handleChange(e as any)}
+            name="location"
+            value={state.location}
+          >
+            {states.map((state) => (
+              <option key={state} value={state}>
+                {state}
               </option>
             ))}
           </Select>

@@ -40,13 +40,16 @@ model Category {
 
 model Ad {
  id             String    @id @default(cuid())
+ title          String
  description    String
+ priceRange     String?
+ isActive       Boolean
+ location       String?
+
  userId         String   @map("user_id")
  categoryId     String   @map("category_id")
- isActive       Boolean
  category       Category @relation(fields:[categoryId], references:[id] )
  seller         User     @relation(fields:[userId], references:[id], onDelete: Cascade)
-
  reviews        Review[]
 }
 
@@ -64,6 +67,7 @@ model User {
   email         String?@unique
   emailVerified DateTime?
   image         String?
+  phone         String?
 
   accounts      Account[]
   sessions      Session[]
