@@ -20,6 +20,7 @@ import {
 import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
 import { signOut, useSession } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
+import { SignIn } from './AuthButtons';
 
 const NavLink = ({ children, href }: { children: ReactNode; href: string }) => (
   <Link
@@ -95,7 +96,8 @@ export default function Header() {
                 </MenuList>
               </Menu>
             ) : (
-              <Link href={'/signup'}> Sign in </Link>
+              <SignIn />
+              // <Link href={'/signup'}> Sign in</Link>
             )}
           </Flex>
         </Flex>

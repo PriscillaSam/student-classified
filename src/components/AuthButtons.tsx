@@ -25,7 +25,7 @@ export function SignIn() {
       leftIcon={<FaPlus />}
       onClick={() => signIn('google')}
     >
-      Signup
+      Signin
     </Button>
   );
 }
