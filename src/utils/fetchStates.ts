@@ -13,8 +13,9 @@ async function fetchStates() {
       }
     );
     const data = await res.json();
-    console.log(data);
-    return data.data.states.map((state: any) => state.name);
+    return data.data.states.map((state: any) =>
+      state.name.replace('State', '')
+    );
   } catch (error) {
     console.log(error);
     return [];

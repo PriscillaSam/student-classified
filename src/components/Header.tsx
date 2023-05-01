@@ -113,13 +113,21 @@ export default function Header() {
 
         {isOpen ? (
           <Box pb={4} display={{ md: 'none' }}>
-            <Stack as={'nav'} spacing={4}>
-              {Links.map((link) => (
-                <NavLink key={link} href={link}>
-                  {link}
-                </NavLink>
-              ))}
-            </Stack>
+            {session?.user ? (
+              <HStack
+                as={'nav'}
+                spacing={4}
+                display={{ base: 'none', md: 'flex' }}
+              >
+                {Links.map((link) => (
+                  <NavLink key={link} href={link}>
+                    {link}
+                  </NavLink>
+                ))}
+              </HStack>
+            ) : (
+              <Link href="/signup">Sign Up</Link>
+            )}
           </Box>
         ) : null}
       </Box>

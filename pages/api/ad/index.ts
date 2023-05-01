@@ -20,9 +20,11 @@ export default async function handler(
     await prismaClient.ad.create({
       data: {
         description: req.body.description,
-        priceRange: req.body.price,
+        priceRange: req.body.priceRange,
         title: req.body.title,
         isActive: true,
+        location: req.body.location,
+
         // @ts-ignore
         seller: { connect: { email: req.body.email } },
         category: { connect: { id: req.body.category } },

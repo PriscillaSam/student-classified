@@ -1,5 +1,6 @@
 'use client';
 
+import React, { useEffect } from 'react';
 import {
   Box,
   Button,
@@ -15,7 +16,6 @@ import {
 import { Category } from '@prisma/client';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import React, { useEffect } from 'react';
 import fetchStates from 'utils/fetchStates';
 
 async function fetchCategories() {
@@ -31,7 +31,7 @@ export default function CreateAd() {
   const [categories, setCategories] = React.useState<Category[]>([]);
   const [state, setState] = React.useState({
     title: '',
-    description: 'description',
+    description: '',
     category: '',
     location: '',
     priceRange: '',
@@ -39,6 +39,7 @@ export default function CreateAd() {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+    console.log(name, value);
     setState({ ...state, [name]: value });
   };
 
@@ -141,7 +142,7 @@ export default function CreateAd() {
           <FormLabel>Description</FormLabel>
           <Textarea
             onChange={(e) => handleChange(e as any)}
-            name="message"
+            name="description"
             placeholder="Enter your description"
             rows={6}
             resize="none"

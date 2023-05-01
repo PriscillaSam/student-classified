@@ -60,7 +60,7 @@ function Rating({ rating, numReviews }: RatingProps) {
 }
 
 function Listing({
-  ad: { id, title, description, priceRange, isActive, location },
+  ad: { id, title, description, priceRange, isActive, location, category },
 }: {
   ad: Ad;
 }) {
@@ -75,8 +75,8 @@ function Listing({
         position="relative"
       >
         <Image
-          src={data.imageURL}
-          alt={`Picture of ${data.name}`}
+          src={category.name === 'Painting' ? '/painting.jpeg' : data.imageURL}
+          alt={`Picture of ${category.name}`}
           roundedTop="lg"
         />
 
@@ -102,12 +102,16 @@ function Listing({
               {title}
             </Box>
           </Flex>
-          <Flex alignItems="center" pt={5} gap={2} mb={5}>
+          <Flex alignItems="center" mt={3} gap={2} mb={2}>
             <Circle size={'20px'} bg="green.700" color="white">
               <CiLocationOn />
             </Circle>
-            <Text>Lagos</Text>
+            <Text>{location ?? 'Lagos'}</Text>
           </Flex>
+          <Text fontWeight={500} mb={5}>
+            {priceRange ? `₦${priceRange}/hr` : '₦120-130/hr'}
+          </Text>
+
           <Divider />
           <Flex justifyContent="space-between" alignItems="center" pt={5}>
             <Flex gap={2}>
