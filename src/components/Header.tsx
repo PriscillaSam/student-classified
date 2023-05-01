@@ -74,7 +74,9 @@ export default function Header() {
                   </NavLink>
                 ))}
               </HStack>
-            ) : null}
+            ) : (
+              <Link href="/signup">Sign Up</Link>
+            )}
           </HStack>
           <Flex alignItems={'center'}>
             {session?.user ? (
