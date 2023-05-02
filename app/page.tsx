@@ -16,6 +16,7 @@ import {
   Input,
   InputLeftAddon,
   IconButton,
+  Button,
 } from '@chakra-ui/react';
 import Features from 'components/Features';
 import Listing from 'components/FeaturedListings';
@@ -82,7 +83,12 @@ export default function Home() {
             </Text>
           </Stack>
           <Box className={styles.searchBox} padding={10} borderRadius={10}>
-            <Flex justify="space-between" align="center" gap={5}>
+            <Flex
+              direction={{ base: 'column', md: 'row' }}
+              justify="space-between"
+              align="center"
+              gap={5}
+            >
               <InputGroup>
                 <InputLeftAddon
                   background="gray.200"
@@ -91,7 +97,7 @@ export default function Home() {
                 >
                   <HiLightBulb />
                 </InputLeftAddon>
-                <Input placeholder="I need a..." />
+                <Input placeholder="I need a (e.g Plumber)" />
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon
@@ -103,11 +109,16 @@ export default function Home() {
                 </InputLeftAddon>
                 <Input placeholder="Location (e.g Lagos)" color="grey.600" />
               </InputGroup>
-              <IconButton
+              <Button
                 aria-label="Search services"
                 colorScheme="blue"
-                icon={<SearchIcon />}
-              />
+                width={{ base: '100%', md: 'auto' }}
+              >
+                <SearchIcon />
+                <Text display={{ base: 'inline-block', md: 'none' }} ml={2}>
+                  Search
+                </Text>
+              </Button>
             </Flex>
           </Box>
         </Container>
@@ -118,7 +129,7 @@ export default function Home() {
           <Features />
         </Container>
       </Box>
-      <Container maxW={'8xl'} mt={100}>
+      <Container maxW={'8xl'} mt={100} mb={20}>
         <Heading>Featured Listings</Heading>
         <SimpleGrid columns={{ base: 1, md: 3, lg: 4 }} spacing={10} mt={50}>
           {ads.map((ad) => (

@@ -42,9 +42,6 @@ const Links: string[] = ['create'];
 
 export default function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const pathname = usePathname();
-  const isActive: (path: string) => boolean = (path) => path === pathname;
-
   const { data: session } = useSession();
 
   return (
@@ -59,8 +56,8 @@ export default function Header() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={'center'}>
-            <Box>
-              <Link href="/">Student Classifieds</Link>
+            <Box fontWeight={700} fontSize="xl">
+              <Link href="/">Classifieds</Link>
             </Box>
             {session?.user ? (
               <HStack
