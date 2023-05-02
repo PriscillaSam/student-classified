@@ -21,16 +21,29 @@ import {
   SimpleGrid,
   useColorModeValue,
   Divider,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CiLocationOn, CiPhone } from 'react-icons/ci';
 import { BsPhone } from 'react-icons/bs';
 import fetchStates from 'utils/fetchStates';
 
-export default function CreateAd() {
-  const { data: session } = useSession();
+import Listing from 'components/FeaturedListings';
+import { Ad } from '../../src/types';
 
+export default function Profile() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const { data: session } = useSession();
+  const [ads, setAds] = useState<Ad[]>([]);
   const [states, setStates] = React.useState<string[]>([]);
   const [state, setState] = React.useState({
     phone: '',
@@ -57,6 +70,16 @@ export default function CreateAd() {
       const states = await fetchStates();
       setStates(states);
     })();
+  }, []);
+
+  useEffect(() => {
+    fetch('/api/ad', {
+      method: 'GET',
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setAds(data);
+      });
   }, []);
 
   return (
@@ -120,10 +143,35 @@ export default function CreateAd() {
         </Box>
         <Divider mt={'30'} />
       </Flex>
+
+      <Container maxW={'8xl'} mt={100} mb={100}>
+        <Heading size="lg" textAlign="center">
+          Current Ads
+        </Heading>
+        <SimpleGrid
+          columns={{ base: 1, md: 3, lg: 4 }}
+          spacing={10}
+          mt={50}
+          mb={50}
+        >
+          {ads.map((ad) => (
+            <Listing key={ad.id} ad={ad} />
+          ))}
+        </SimpleGrid>
+
+        <Heading size="lg" textAlign="center">
+          Deactivated Ads
+        </Heading>
+        <SimpleGrid columns={{ base: 1, md: 3, lg: 4 }} spacing={10} mt={50}>
+          {ads.map((ad) => (
+            <Listing key={ad.id} ad={{ ...ad, isActive: false }} />
+          ))}
+        </SimpleGrid>
+      </Container>
       <Box
         borderRadius="lg"
         px={{ base: 5, lg: 16 }}
-        style={{ maxWidth: '600px', margin: 'auto' }}
+        style={{ maxWidth: '600px', margin: '100px auto' }}
       >
         <VStack spacing={{ base: 4, md: 8, lg: 10 }}>
           <Heading
@@ -185,6 +233,76 @@ export default function CreateAd() {
           </Button>
         </VStack>
       </Box>
+
+      {/* Modal starts here */}
+      <Modal blockScrollOnMount={true} isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader textAlign="center">Update your profile</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Box borderRadius="lg">
+              <VStack spacing={{ base: 4, md: 8, lg: 10 }}>
+                <FormControl isRequired>
+                  <FormLabel>Email</FormLabel>
+
+                  <InputGroup>
+                    <Input
+                      type="text"
+                      name="email"
+                      value={session?.user?.email || ''}
+                      disabled
+                    />
+                  </InputGroup>
+                </FormControl>
+
+                <FormControl isRequired>
+                  <FormLabel>Location</FormLabel>
+                  <Select
+                    placeholder="Select State"
+                    onChange={(e) => handleChange(e as any)}
+                    name="state"
+                    value={state.location}
+                  >
+                    {states.map((state) => (
+                      <option key={state} value={state}>
+                        {state}
+                      </option>
+                    ))}
+                  </Select>
+                </FormControl>
+
+                <FormControl isRequired>
+                  <FormLabel>Phone</FormLabel>
+                  <Input
+                    onChange={(e) => handleChange(e as any)}
+                    name="phone"
+                    placeholder="Enter your phone number"
+                  />
+                </FormControl>
+              </VStack>
+            </Box>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button variant="ghost" onClick={onClose}>
+              Close
+            </Button>
+            <Button
+              colorScheme="blue"
+              mr={3}
+              bg="blue.400"
+              color="white"
+              _hover={{
+                bg: 'blue.500',
+              }}
+              onClick={saveProfile}
+            >
+              Save Profile
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 }

@@ -12,7 +12,6 @@ import {
   Menu,
   MenuButton,
   MenuList,
-  Stack,
   MenuItem,
   MenuDivider,
   useDisclosure,
