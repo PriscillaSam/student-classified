@@ -90,7 +90,9 @@ export default function Header() {
                   </Flex>
                 </MenuButton>
                 <MenuList>
-                  <MenuItem onClick={() => signOut()}>Logout</MenuItem>
+                  <MenuItem onClick={() => signOut({ callbackUrl: '/signin' })}>
+                    Logout
+                  </MenuItem>
                   <MenuDivider />
                   <MenuItem>
                     <Link href={'/profile'}>My Profile</Link>

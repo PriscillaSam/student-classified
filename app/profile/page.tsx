@@ -16,6 +16,11 @@ import {
   Circle,
   Flex,
   WrapItem,
+  List,
+  ListItem,
+  SimpleGrid,
+  useColorModeValue,
+  Divider,
 } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
 import React, { useEffect } from 'react';
@@ -39,13 +44,12 @@ export default function CreateAd() {
   };
 
   const saveProfile = async () => {
-    const res = await fetch('/api/ad', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(state),
-    });
-
-    console.log(res);
+    // const res = await fetch('/api/ad', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(state),
+    // });
+    // console.log(res);
   };
 
   useEffect(() => {
@@ -62,26 +66,28 @@ export default function CreateAd() {
         p={0}
         flexDirection="column"
         alignItems="center"
-        style={{ margin: 'auto' }}
+        style={{ margin: '4em auto' }}
       >
         <Avatar
           size="2xl"
           name={session?.user?.name as string}
           src={session?.user?.image as string}
+          mb={5}
         />
         <Heading size="lg">{session?.user?.name}</Heading>
         <Flex
-          alignItems="center"
+          alignItems={{ base: 'flex-start', md: 'center' }}
           justifyContent="space-between"
           mt={3}
           gap={2}
           mb={2}
+          direction={{ base: 'column', md: 'row' }}
         >
           <WrapItem alignItems="center" mr={50}>
             <Circle size={'30px'} bg="gray.200" color="gray.700" mr={2}>
               <BsPhone />
             </Circle>
-            <Text>+2348012345678</Text>
+            <Text>+234 809742978</Text>
           </WrapItem>
           <WrapItem alignItems="center">
             <Circle size={'30px'} bg="gray.200" color="gray.700" mr={2}>
@@ -90,10 +96,33 @@ export default function CreateAd() {
             <Text>{'Lagos'}</Text>
           </WrapItem>
         </Flex>
+
+        <Divider m={'30'} />
+        <Box>
+          <Text
+            fontSize={{ base: '16px', lg: '18px' }}
+            color={useColorModeValue('yellow.500', 'yellow.300')}
+            fontWeight={'500'}
+            textTransform={'uppercase'}
+            mb={'4'}
+          >
+            Skills
+          </Text>
+          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
+            <List spacing={2}>
+              <ListItem>Interior Painting</ListItem>
+              <ListItem>Drywall repair</ListItem>{' '}
+            </List>
+            <List spacing={2}>
+              <ListItem>Exterior Painting</ListItem>
+            </List>
+          </SimpleGrid>
+        </Box>
+        <Divider mt={'30'} />
       </Flex>
       <Box
         borderRadius="lg"
-        p={{ base: 5, lg: 16 }}
+        px={{ base: 5, lg: 16 }}
         style={{ maxWidth: '600px', margin: 'auto' }}
       >
         <VStack spacing={{ base: 4, md: 8, lg: 10 }}>

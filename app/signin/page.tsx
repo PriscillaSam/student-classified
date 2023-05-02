@@ -41,7 +41,7 @@ export default function SignUp() {
               w={'full'}
               variant={'outline'}
               leftIcon={<FcGoogle size={25} />}
-              onClick={() => signIn('google')}
+              onClick={() => signIn('google', { callbackUrl: '/profile' })}
             >
               <Text>Sign in with Google</Text>
             </Button>

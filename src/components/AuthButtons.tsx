@@ -23,7 +23,7 @@ export function SignIn() {
       variant="solid"
       background="white"
       leftIcon={<FcGoogle />}
-      onClick={() => signIn('google')}
+      onClick={() => signIn('google', { callbackUrl: '/profile' })}
     >
       <Center>
         <Text>Sign in with Google</Text>
