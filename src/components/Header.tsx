@@ -58,21 +58,21 @@ export default function Header() {
             <Box fontWeight={700} fontSize="xl">
               <Link href="/">Classifieds</Link>
             </Box>
-            {session?.user ? (
-              <HStack
-                as={'nav'}
-                spacing={4}
-                display={{ base: 'none', sm: 'flex' }}
-              >
-                {Links.map((link) => (
+            <HStack
+              as={'nav'}
+              spacing={4}
+              display={{ base: 'none', md: 'flex' }}
+            >
+              {session?.user ? (
+                Links.map((link) => (
                   <NavLink key={link} href={link}>
                     {link}
                   </NavLink>
-                ))}
-              </HStack>
-            ) : (
-              <Link href="/signup">Sign Up</Link>
-            )}
+                ))
+              ) : (
+                <Link href="/signup">Sign Up</Link>
+              )}
+            </HStack>
           </HStack>
           <Flex alignItems={'center'}>
             {session?.user ? (
@@ -112,11 +112,7 @@ export default function Header() {
         {isOpen ? (
           <Box pb={4} display={{ md: 'none' }}>
             {session?.user ? (
-              <HStack
-                as={'nav'}
-                spacing={4}
-                display={{ base: 'none', md: 'flex' }}
-              >
+              <HStack as={'nav'} spacing={4}>
                 {Links.map((link) => (
                   <NavLink key={link} href={link}>
                     {link}

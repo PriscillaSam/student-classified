@@ -128,8 +128,8 @@ export default function CreateAd() {
         <VStack spacing={{ base: 4, md: 8, lg: 10 }}>
           <Heading
             fontSize={{
-              base: '4xl',
-              md: '5xl',
+              base: 'xl',
+              md: '2xl',
             }}
           >
             Update your profile
