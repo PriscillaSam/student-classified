@@ -9,6 +9,7 @@ import {
   Input,
   InputGroup,
   Text,
+  IconButton,
   VStack,
   Select,
   Container,
@@ -29,10 +30,11 @@ import {
   ModalHeader,
   ModalOverlay,
   useDisclosure,
+  AvatarBadge,
 } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react';
-import { CiLocationOn, CiPhone } from 'react-icons/ci';
+import { CiLocationOn, CiEdit } from 'react-icons/ci';
 import { BsPhone } from 'react-icons/bs';
 import fetchStates from 'utils/fetchStates';
 
@@ -96,7 +98,13 @@ export default function Profile() {
           name={session?.user?.name as string}
           src={session?.user?.image as string}
           mb={5}
-        />
+        >
+          <AvatarBadge borderColor="papayawhip" bg="tomato" boxSize="1em">
+            <IconButton aria-label="edit" variant="ghost" onClick={onOpen}>
+              <CiEdit />
+            </IconButton>
+          </AvatarBadge>
+        </Avatar>
         <Heading size="lg">{session?.user?.name}</Heading>
         <Flex
           alignItems={{ base: 'flex-start', md: 'center' }}
@@ -168,71 +176,6 @@ export default function Profile() {
           ))}
         </SimpleGrid>
       </Container>
-      <Box
-        borderRadius="lg"
-        px={{ base: 5, lg: 16 }}
-        style={{ maxWidth: '600px', margin: '100px auto' }}
-      >
-        <VStack spacing={{ base: 4, md: 8, lg: 10 }}>
-          <Heading
-            fontSize={{
-              base: 'xl',
-              md: '2xl',
-            }}
-          >
-            Update your profile
-          </Heading>
-          <FormControl isRequired>
-            <FormLabel>Email</FormLabel>
-
-            <InputGroup>
-              <Input
-                type="text"
-                name="email"
-                value={session?.user?.email || ''}
-                disabled
-              />
-            </InputGroup>
-          </FormControl>
-
-          <FormControl isRequired>
-            <FormLabel>Location</FormLabel>
-            <Select
-              placeholder="Select State"
-              onChange={(e) => handleChange(e as any)}
-              name="state"
-              value={state.location}
-            >
-              {states.map((state) => (
-                <option key={state} value={state}>
-                  {state}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
-
-          <FormControl isRequired>
-            <FormLabel>Phone</FormLabel>
-            <Input
-              onChange={(e) => handleChange(e as any)}
-              name="phone"
-              placeholder="Enter your phone number"
-            />
-          </FormControl>
-
-          <Button
-            colorScheme="blue"
-            bg="blue.400"
-            color="white"
-            _hover={{
-              bg: 'blue.500',
-            }}
-            onClick={saveProfile}
-          >
-            Save Profile
-          </Button>
-        </VStack>
-      </Box>
 
       {/* Modal starts here */}
       <Modal blockScrollOnMount={true} isOpen={isOpen} onClose={onClose}>
