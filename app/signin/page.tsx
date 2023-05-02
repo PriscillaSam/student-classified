@@ -28,7 +28,7 @@ export default function SignUp() {
     >
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
-          <Heading fontSize={'4xl'}>Create your account</Heading>
+          <Heading fontSize={'4xl'}>Sign into your account</Heading>
         </Stack>
         <Box
           rounded={'lg'}
@@ -43,14 +43,14 @@ export default function SignUp() {
               leftIcon={<FcGoogle size={25} />}
               onClick={() => signIn('google')}
             >
-              <Text>Sign up with Google</Text>
+              <Text>Sign in with Google</Text>
             </Button>
             <Button
               w={'full'}
               variant={'outline'}
               leftIcon={<BsFacebook color="#4299e1" size={25} />}
             >
-              <Text>Sign up with Facebook</Text>
+              <Text>Sign in with Facebook</Text>
             </Button>
 
             <Text align="center">Or</Text>
@@ -66,6 +66,14 @@ export default function SignUp() {
                 <Input type="password" />
               </FormControl>
               <Stack spacing={10}>
+                <Stack
+                  direction={{ base: 'column', sm: 'row' }}
+                  align={'start'}
+                  justify={'space-between'}
+                >
+                  <Checkbox>Remember me</Checkbox>
+                  <Link color={'blue.400'}>Forgot password?</Link>
+                </Stack>
                 <Button
                   bg={'blue.400'}
                   color={'white'}
@@ -73,7 +81,7 @@ export default function SignUp() {
                     bg: 'blue.500',
                   }}
                 >
-                  Sign up
+                  Sign in
                 </Button>
               </Stack>
             </Stack>

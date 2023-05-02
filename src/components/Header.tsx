@@ -20,7 +20,6 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { signOut, useSession } from 'next-auth/react';
-import { usePathname } from 'next/navigation';
 import { SignIn } from './AuthButtons';
 
 const NavLink = ({ children, href }: { children: ReactNode; href: string }) => (
@@ -63,7 +62,7 @@ export default function Header() {
               <HStack
                 as={'nav'}
                 spacing={4}
-                display={{ base: 'none', md: 'flex' }}
+                display={{ base: 'none', sm: 'flex' }}
               >
                 {Links.map((link) => (
                   <NavLink key={link} href={link}>
