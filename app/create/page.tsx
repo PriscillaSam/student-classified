@@ -12,6 +12,8 @@ import {
   Textarea,
   VStack,
   Select,
+  Alert,
+  AlertIcon,
 } from '@chakra-ui/react';
 import { Category } from '@prisma/client';
 import { useSession } from 'next-auth/react';
@@ -29,9 +31,10 @@ export default function CreateAd() {
   const { data: session } = useSession();
   const [states, setStates] = React.useState<string[]>([]);
   const [categories, setCategories] = React.useState<Category[]>([]);
+  const [error, setError] = React.useState<boolean>(false);
   const [state, setState] = React.useState({
     title: '',
-    description: '',
+    description: 'Best service ever',
     category: '',
     location: '',
     priceRange: '',
@@ -54,6 +57,13 @@ export default function CreateAd() {
       router.push('/ads');
     }
   };
+  const handleBlur = (event: any) => {
+    if (state.title === '' || state.category === '' || state.location === '') {
+      setError(true);
+    } else {
+      setError(false);
+    }
+  };
 
   useEffect(() => {
     (async () => {
@@ -64,6 +74,9 @@ export default function CreateAd() {
       setStates(states);
     })();
   }, []);
+
+  const isDeactivated =
+    state.title === '' || state.category === '' || state.location === '';
 
   return (
     <Box
@@ -80,6 +93,14 @@ export default function CreateAd() {
         >
           Post your Ad
         </Heading>
+        {error ? (
+          <Alert status="warning">
+            <AlertIcon />
+            Please fill in the required fields. They are marked with an
+            asterisk.
+          </Alert>
+        ) : null}
+
         <FormControl isRequired>
           <FormLabel>Listing title</FormLabel>
 
@@ -138,17 +159,17 @@ export default function CreateAd() {
           </Select>
         </FormControl>
 
-        <FormControl isRequired>
+        <FormControl>
           <FormLabel>Description</FormLabel>
           <Textarea
             onChange={(e) => handleChange(e as any)}
             name="description"
             placeholder="Enter your description"
             rows={6}
+            onBlur={handleBlur}
             resize="none"
           />
         </FormControl>
-
         <Button
           colorScheme="blue"
           bg="blue.400"
@@ -156,6 +177,7 @@ export default function CreateAd() {
           _hover={{
             bg: 'blue.500',
           }}
+          isDisabled={isDeactivated}
           onClick={saveAd}
         >
           Create Ad
